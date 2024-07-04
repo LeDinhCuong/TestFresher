@@ -1,0 +1,50 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/user_avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/circle_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_avatar"
+        app:layout_constraintTop_toTopOf="@+id/user_avatar"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/user_github_link"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="github.com/username"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/user_name"
+        app:layout_constraintStart_toStartOf="@id/user_name"
+        app:layout_constraintTop_toBottomOf="@id/user_name"
+        android:layout_marginTop="8dp"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="-10dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
