@@ -17,15 +17,10 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
   private List<User> users;
   private Context context;
-
   private OnUserClickListener onUserClickListener;
   public UserAdapter(List<User> users, Context context) {
     this.users = users;
     this.context = context;
-  }
-
-  public interface OnUserClickListener {
-    void onUserClick(int position);
   }
 
   // Phương thức để thiết lập nghe sự kiện nhấn

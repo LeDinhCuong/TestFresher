@@ -9,20 +9,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserRepository {
+public class Repository {
   private ApiService apiService;
 
-  public UserRepository(){
+  public Repository(){
     apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
   }
 
-  public LiveData<List<User>> getUsers(MutableLiveData<List<User>> usersLiveData){
+  public LiveData<List<User>> getUsers(){
+    MutableLiveData<List<User>> usersLiveData = new MutableLiveData<>();
     apiService.getUsers().enqueue(new Callback<List<User>>() {
       @Override
       public void onResponse(Call<List<User>> call, Response<List<User>> response) {
         if (response.isSuccessful()) {
           usersLiveData.setValue(response.body());
-
         }
       }
       @Override
@@ -33,7 +33,8 @@ public class UserRepository {
     return usersLiveData;
   }
 
-  public LiveData<User> getUserDetail(MutableLiveData<User> userLiveData, int userID){
+  public LiveData<User> getUserDetail(int userID){
+    MutableLiveData<User> userLiveData = new MutableLiveData<>();
     apiService.getUserDetail(userID).enqueue(new Callback<User>() {
       @Override
       public void onResponse(Call<User> call, Response<User> response) {
@@ -49,4 +50,5 @@ public class UserRepository {
     });
     return userLiveData;
   }
+
 }

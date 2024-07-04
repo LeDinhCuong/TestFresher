@@ -8,21 +8,25 @@ import java.util.List;
 
 public class UserViewModel extends ViewModel {
   private MutableLiveData<List<User>> users;
-  private UserRepository userRepository;
+  private Repository repository;
 
-  public UserViewModel(){
-    userRepository = new UserRepository();
+  public UserViewModel() {
+    repository = new Repository();
+    users = new MutableLiveData<>();
+    loadUsers();
   }
 
-  public LiveData<List<User>> getUsers(){
-    if(users == null){
-      users = new MutableLiveData<>();
-      loadUser();
-    }
+  public LiveData<List<User>> getUsers() {
     return users;
   }
 
-  private void loadUser(){
-    userRepository.getUsers(users);
+  public void refreshUsers() {
+    loadUsers();
+  }
+
+  private void loadUsers() {
+    repository.getUsers().observeForever(newUsers -> {
+      users.setValue(newUsers);
+    });
   }
 }

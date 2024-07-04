@@ -2,10 +2,12 @@ package com.demo;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -13,6 +15,8 @@ public class UserDetailActivity extends AppCompatActivity {
   private TextView name, location, bio, publicRepos, followers, following;
   private ImageView avatar;
   private UserDetailViewModel userDetailViewModel;
+
+  private SwipeRefreshLayout swipeRefreshLayout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class UserDetailActivity extends AppCompatActivity {
     followers = findViewById(R.id.user_followers);
     following = findViewById(R.id.user_following);
     avatar = findViewById(R.id.user_avatar);
+    swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
 
     int userId = getIntent().getIntExtra("user_id", -1);
 
@@ -40,6 +45,13 @@ public class UserDetailActivity extends AppCompatActivity {
         following.setText(String.valueOf(user.getFollowing()));
         Glide.with(this).load(user.getAvatar_url()).circleCrop().into(avatar);
       }
+      swipeRefreshLayout.setRefreshing(false);
+      Toast.makeText(this, "Data loaded successfully", Toast.LENGTH_SHORT).show();
     });
+    swipeRefreshLayout.setOnRefreshListener(() -> {
+      userDetailViewModel.refreshUser(userId);
+    });
+
+    userDetailViewModel.refreshUser(userId);
   }
 }

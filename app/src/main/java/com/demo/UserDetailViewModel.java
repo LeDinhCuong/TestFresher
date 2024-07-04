@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel;
 
 public class UserDetailViewModel extends ViewModel {
   private MutableLiveData<User> user;
-  private UserRepository userRepository;
+  private Repository repository;
 
   public UserDetailViewModel(){
-    userRepository = new UserRepository();
+    repository = new Repository();
   }
 
   public LiveData<User> getUser(int userId){
@@ -20,7 +20,12 @@ public class UserDetailViewModel extends ViewModel {
     return user;
   }
 
-  private void loadUser(int userId){
-    userRepository.getUserDetail(user, userId);
+  public void refreshUser(int userId) {
+    loadUser(userId);
+  }
+  private void loadUser(int userId) {
+    repository.getUserDetail(userId).observeForever(newUser -> {
+      user.setValue(newUser);
+    });
   }
 }
